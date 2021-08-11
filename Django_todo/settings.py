@@ -10,23 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
+import os
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xxdg1@onq2jse6f2f^!o1jh^r)fs+ck00@z6!)o4$jg%6+8xgb'
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-xxdg1@onq2jse6f2f^!o1jh^r)fs+ck00@z6!)o4$jg%6+8xgb')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
 
 # Application definition
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Django_todo.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://rystpxpildgrus:b896b7355a7ec9af42cfeee4cbd8fd172a25246e30d34b49c04a3601750141e6@ec2-44-196-146-152.compute-1.amazonaws.com:5432/d3rii6nrsukb5s')
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 
